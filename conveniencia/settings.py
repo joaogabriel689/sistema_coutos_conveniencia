@@ -25,6 +25,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 
 ALLOWED_HOSTS = [
+    "sistema-coutos-conveniencia.onrender.com",
     'localhost',
     '127.0.0.1',
 ]
