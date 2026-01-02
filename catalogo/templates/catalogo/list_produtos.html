@@ -1,0 +1,60 @@
+{% load static %}
+{% include "./pages/header.html" %}
+
+<main>
+
+    <!-- FILTRO -->
+    <section class="filters">
+        <form method="get">
+            <label for="category">Escolha a categoria</label>
+
+            <select name="category">
+                <option value="">Todas</option>
+
+                {% for category in list_categorys %}
+                    <option value="{{ category.id }}"
+                        {% if request.GET.category == category.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ category.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Filtrar</button>
+        </form>
+    </section>
+
+    <!-- LISTA DE PRODUTOS -->
+    <section class="products-list">
+        {% for product in list_products %}
+            <div class="cardproduct">
+
+                {% if product.imagem %}
+                    <img src="{{ product.imagem.url }}" alt="{{ product.nome }}" width="150">
+                {% else %}
+                    <img src="{% static 'img/placeholder.png' %}" alt="Sem imagem" width="150">
+                {% endif %}
+
+                <h2>{{ product.nome }}</h2>
+                <p>R$ {{ product.preco }}</p>
+
+                <a href="{% url 'produto_detalhe' product.id %}">
+                    Ver detalhes
+                </a>            
+                <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+                        class="btn"
+                        target="_blank">
+                Comprar no WhatsApp
+                </a>
+
+            </div>
+        {% empty %}
+            <p>Nenhum produto encontrado.</p>
+        {% endfor %}
+    </section>
+
+</main>
+
+{% include "./pages/footer.html" %}

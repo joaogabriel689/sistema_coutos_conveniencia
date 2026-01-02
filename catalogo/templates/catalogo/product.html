@@ -1,0 +1,32 @@
+{% load static %}
+{% include "./pages/header.html" %}
+
+<section class="product-detail">
+    <div class="cardproduct">
+
+        {% if product.imagem %}
+            <img src="{{ product.imagem.url }}" alt="{{ product.nome }}">
+        {% else %}
+            <img src="{% static 'img/placeholder.png' %}">
+        {% endif %}
+
+        <h2>{{ product.nome }}</h2>
+        <p class="price">R$ {{ product.preco }}</p>
+
+        {% if product.descricao %}
+            <p>{{ product.descricao }}</p>
+        {% endif %}
+
+        <p class="categoria">
+            Categoria: {{ product.categoria.nome }}
+        </p>
+        <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+            class="btn"
+            target="_blank">
+        Comprar no WhatsApp
+        </a>
+        <a href="{% url 'list_produtos' %}" class="btn">Voltar</a>
+    </div>
+</section>
+
+{% include "./pages/footer.html" %}
