@@ -1,22 +1,22 @@
-# 🏪 Sistema Coutos Conveniência
+# 🏪 Sistema Couto’s Conveniência
 
-Sistema web para **catálogo digital de uma conveniência física**, focado na exibição de produtos, preços, promoções e combos, **sem e-commerce, sem pagamento online e sem delivery**.
+Sistema web para **catálogo digital de uma conveniência física**, desenvolvido com **Django + HTML/CSS**, focado na exibição de produtos, preços, promoções e categorias, **sem e-commerce, sem pagamento online e sem delivery**.
 
-O acesso ao catálogo é feito via **QR Code**, permitindo que o cliente visualize produtos e ofertas diretamente no celular, dentro da loja.
+O sistema é acessado via **QR Code**, facilitando a decisão de compra do cliente dentro da loja e aumentando o ticket médio.
 
 ---
 
 ## 🎯 Contexto do projeto
 
-A **Coutos Conveniência** é um comércio físico que não possuía presença digital.
+A Couto’s Conveniência é um comércio físico que não possuía presença digital estruturada.
 
-Os principais problemas identificados foram:
-- clientes perguntando preços repetidamente no balcão
-- promoções com pouca visibilidade
-- dificuldade em divulgar combos
-- dependência total do atendimento para decisão de compra
+Problemas identificados:
+- clientes perguntando preços repetidamente
+- promoções pouco visíveis
+- dificuldade em divulgar produtos e categorias
+- dependência total do balcão para decisão de compra
 
-Este sistema surge como uma **solução simples e objetiva**, focada em melhorar a experiência do cliente **no ambiente físico da loja**.
+Este projeto resolve isso com um **catálogo digital simples, rápido e acessível**, pensado para uso **no ambiente físico da loja**.
 
 ---
 
@@ -24,11 +24,13 @@ Este sistema surge como uma **solução simples e objetiva**, focada em melhorar
 
 ### ✅ O sistema É:
 - Catálogo digital de produtos
-- Lista de preços atualizada
-- Promoções e combos
-- Produtos em destaque
+- Exibição de preços
+- Filtro por categorias
+- Página de detalhe do produto
+- Contador de cliques (interesse do cliente)
 - Acesso via QR Code
-- Painel administrativo (uso interno)
+- Importação automatizada de produtos
+- Deploy em produção
 
 ### ❌ O sistema NÃO é:
 - E-commerce
@@ -39,51 +41,92 @@ Este sistema surge como uma **solução simples e objetiva**, focada em melhorar
 
 ---
 
-## ⚙️ Funcionalidades
-
-- Cadastro, edição e remoção de produtos
-- Cadastro de categorias
-- Marcação de produtos como:
-  - promoção
-  - destaque
-  - parte de combo
-- Alteração rápida de preços
-- Sugestão de combos
-- Painel administrativo do Django
-
----
-
 ## 🧰 Tecnologias utilizadas
 
 ### Backend
 - Python
 - Django
 - Django ORM
-- SQLite (ambiente de desenvolvimento)
+- Gunicorn
 
 ### Frontend
 - HTML
 - CSS
 - Templates Django
 
+### Infraestrutura
+- Git (versionamento)
+- Render (deploy)
+- Banco de dados em produção
+- Arquivos estáticos configurados corretamente
+
 ---
 
-## 🧱 Estrutura geral do sistema
+## ⚙️ Funcionalidades implementadas
 
-### Área pública
-- Home
-- Promoções
-- Combos
-- Produtos em destaque
-- Lista de produtos
-- Detalhe do produto
-- Onde estamos (mapa, horário e contato)
+### Frontend
+- Layout completo das páginas:
+  - Home
+  - Produtos
+  - Detalhe do produto
+  - Promoções
+  - Contato
+- Identidade visual definida (preto + amarelo)
+- Design responsivo (mobile, tablet e desktop)
+- Grid de produtos organizado
+- Botões de CTA funcionando (WhatsApp / detalhes)
 
-### Área administrativa
-- Gerenciamento de produtos
-- Gerenciamento de categorias
-- Controle de promoções e destaques
-- Acesso restrito via admin do Django
+### Backend
+- Models organizados:
+  - Produto
+  - Categoria
+- Campo de imagem com `ImageField(upload_to="produtos/")`
+- Views limpas e organizadas
+- Filtro de produtos por categoria
+- Página de detalhe funcional
+- Contador de cliques com `F('cliques') + 1`
+- Rotas padrão do Django funcionando corretamente
+
+---
+
+## 🧪 Qualidade e confiabilidade
+
+- Testes automatizados implementados
+- Testes corrigidos e 100% passando
+- Lógica validada em ambiente de testes
+- Código sem gambiarras ou dependências frágeis
+
+---
+
+## 📦 Importação automatizada de dados
+
+- Comando customizado para importação via CSV
+- Cadastro de produtos sem uso do admin manual
+- Pipeline preparado para escalar o catálogo
+
+---
+
+## 🧱 Decisão técnica importante — gestão de imagens
+
+### Problema identificado
+Upload manual de imagens não escala.
+
+### Solução adotada
+Importação automática de imagens via URL.
+
+### Estratégia definida
+- CSV contendo coluna `image_url`
+- Comando de importação:
+  - baixa a imagem automaticamente
+  - salva no `ImageField`
+  - associa corretamente ao produto
+- Compatível com ambiente de produção (Render)
+- Zero trabalho manual
+
+### Fontes de imagens
+- Unsplash
+- Pexels
+- Pixabay
 
 ---
 
@@ -95,34 +138,36 @@ Este sistema surge como uma **solução simples e objetiva**, focada em melhorar
 4. Execute as migrações
 5. Inicie o servidor Django
 
-> ⚠️ Comandos detalhados serão adicionados conforme o projeto evolui.
+> ⚠️ Detalhamento dos comandos será expandido conforme necessário.
 
 ---
 
 ## 🚧 Status do projeto
 
-🟡 **Em desenvolvimento**
+🟢 **Funcional e em produção**
 
-- Documentação inicial concluída
-- Estrutura base do Django criada
-- Modelos em evolução
-- Frontend em construção
+Infraestrutura, deploy, frontend base, backend e testes **já resolvidos**.
 
 ---
 
-## 📈 Objetivo do projeto
+## 🔜 Próximo passo (ponto exato de retomada)
 
-- Criar um **case real de aplicação web**
-- Melhorar a experiência do cliente na loja física
-- Facilitar a divulgação de produtos e promoções
-- Desenvolver um sistema reutilizável para outros comércios locais
+### 🥇 Automação definitiva de imagens
 
----
+Objetivo:
+- eliminar qualquer upload manual
+- importar produtos com imagens automaticamente
 
-## 🔜 Próximos passos
+Próximas ações:
+- criar CSV com coluna `image_url`
+- ajustar comando de importação para:
+  - baixar a imagem
+  - salvar no `ImageField`
+  - associar corretamente ao produto
 
-- Finalizar modelagem dos produtos e categorias
-- Criar views públicas do catálogo
-- Estilizar páginas com CSS
-- Implementar combos e promoções
-- Gerar QR Code de acesso ao sistema
+📍 **Para retomar o projeto no futuro, basta dizer:**
+
+> “Vamos continuar pela automação de imagens via URL no comando de importação.”
+
+A partir disso, o desenvolvimento segue **sem retrabalho**.
+
