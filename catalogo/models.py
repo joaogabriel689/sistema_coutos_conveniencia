@@ -14,7 +14,7 @@ class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     imagem = models.ImageField(
-        upload_to='produtos/',
+        upload_to='/',
         blank=True,
         null=True
     )
@@ -23,8 +23,9 @@ class Produto(models.Model):
     promocao = models.BooleanField(default=False)
     ativo = models.BooleanField(default=True)
 
-    cliques = models.PositiveIntegerField
-    whatsapp = models.PositiveIntegerField
+    cliques = models.PositiveIntegerField(default=0)
+
+    whatsapp = models.PositiveIntegerField(default=0)
 
 
     def __str__(self):
