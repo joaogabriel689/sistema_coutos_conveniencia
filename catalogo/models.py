@@ -23,5 +23,9 @@ class Produto(models.Model):
     promocao = models.BooleanField(default=False)
     ativo = models.BooleanField(default=True)
 
+    cliques = models.PositiveIntegerField
+    whatsapp = models.PositiveIntegerField
+
+
     def __str__(self):
         return self.nome
