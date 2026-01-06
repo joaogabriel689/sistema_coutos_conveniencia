@@ -132,9 +132,21 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
 MEDIA_URL = '/media/'
+
+
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
 SECURE_BROWSER_XSS_FILTER = True
+
+
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
 CSRF_COOKIE_SECURE = False  # True só com HTTPS
+
+
 SESSION_COOKIE_SECURE = False  # True só com HTTPS
