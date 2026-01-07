@@ -31,11 +31,7 @@
         {% for product in list_products %}
             <div class="cardproduct">
 
-                {% if product.imagem %}
-                    <img src="{{ product.imagem.url }}" alt="{{ product.nome }}" width="150">
-                {% else %}
-                    <img src="{% static 'img/placeholder.png' %}" alt="Sem imagem" width="150">
-                {% endif %}
+                <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
 
                 <h2>{{ product.nome }}</h2>
                 <p>R$ {{ product.preco }}</p>

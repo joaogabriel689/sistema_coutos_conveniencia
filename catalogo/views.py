@@ -3,7 +3,7 @@ from catalogo.models import Produto, Categoria
 from django.db.models import F
 
 def index(request):
-    products_principal = Produto.objects.order_by("clique").filter(ativo=True).all()[:5]
+    products_principal = Produto.objects.order_by("-cliques").filter(ativo=True).all()[:8]
     products_promotion = Produto.objects.filter(promocao=True, ativo=True)
 
     context = {

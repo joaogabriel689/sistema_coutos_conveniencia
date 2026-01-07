@@ -7,9 +7,7 @@
 
         {% for product in products_promotion %}
             <div class="cardproduct">
-                {% if product.imagem %}
-                    <img src="{{ product.imagem.url }}">
-                {% endif %}
+                <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
                 <h3>{{ product.nome }}</h3>
                 <p class="price promo">R$ {{ product.preco }}</p>
                         <a href="{% url 'clique' product.id %}" class="btn">
