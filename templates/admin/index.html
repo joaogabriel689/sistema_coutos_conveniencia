@@ -1,0 +1,14 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+    <div style="margin-bottom:20px;">
+        <a href="{% url 'sync_produtos_admin' %}"
+           class="button"
+           style="padding:10px 15px; background:#0d6efd; color:white; border-radius:4px;">
+           🔄 Sincronizar catálogo (Google Sheets)
+        </a>
+    </div>
+
+    {{ block.super }}
+{% endblock %}
