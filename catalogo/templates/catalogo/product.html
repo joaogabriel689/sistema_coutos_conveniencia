@@ -20,7 +20,7 @@
         <p class="categoria">
             Categoria: {{ product.categoria.nome }}
         </p>
-        <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+        <a href="{% url "WhatsApp" product.id %}"
             class="btn"
             target="_blank">
         Comprar no WhatsApp

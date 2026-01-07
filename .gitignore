@@ -10,7 +10,7 @@ __pycache__/
 
 # Django
 db.sqlite3
-
+db.sqlite3
 
 # VS Code / Windows
 .vscode/
@@ -18,4 +18,3 @@ db.sqlite3
 
 # Variáveis de ambiente
 .env
-db.sqlite3
