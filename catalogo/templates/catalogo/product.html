@@ -4,11 +4,7 @@
 <section class="product-detail">
     <div class="cardproduct">
 
-        {% if product.imagem %}
-            <img src="{{ product.imagem.url }}" alt="{{ product.nome }}">
-        {% else %}
-            <img src="{% static 'img/placeholder.png' %}">
-        {% endif %}
+        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
 
         <h2>{{ product.nome }}</h2>
         <p class="price">R$ {{ product.preco }}</p>
@@ -20,7 +16,7 @@
         <p class="categoria">
             Categoria: {{ product.categoria.nome }}
         </p>
-        <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+        <a href="{% url "WhatsApp" product.id %}"
             class="btn"
             target="_blank">
         Comprar no WhatsApp

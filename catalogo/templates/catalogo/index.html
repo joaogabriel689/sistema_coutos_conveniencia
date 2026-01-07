@@ -20,25 +20,19 @@
             <div class="products-grid">
                 {% for product in products_principal %}
                     <div class="cardproduct">
-
-                        {% if product.imagem %}
-                            <img src="{{ product.imagem.url }}" alt="{{ product.nome }}" width="150">
-                        {% else %}
-                            <img src="{% static 'img/placeholder.png' %}" alt="Sem imagem" width="150">
-                        {% endif %}
+                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
 
                         <h3>{{ product.nome }}</h3>
                         <p class="price">R$ {{ product.preco }}</p>
 
-                        <a href="{% url 'produto_detalhe' product.id %}" class="btn">
+                        <a href="{% url 'clique' product.id %}" class="btn">
                             Ver detalhes
                         </a>
-                        <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+                        <a href="{% url 'WhatsApp' product.id %}"
                         class="btn"
                         target="_blank">
                         Comprar no WhatsApp
                         </a>
-
                     </div>
                 {% endfor %}
             </div>
@@ -56,19 +50,15 @@
                 {% for product in products_promotion %}
                     <div class="cardproduct">
 
-                        {% if product.imagem %}
-                            <img src="{{ product.imagem.url }}" alt="{{ product.nome }}" width="150">
-                        {% else %}
-                            <img src="{% static 'img/placeholder.png' %}" alt="Sem imagem" width="150">
-                        {% endif %}
+                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
 
                         <h3>{{ product.nome }}</h3>
                         <p class="price promo">R$ {{ product.preco }}</p>
 
-                        <a href="{% url 'produto_detalhe' product.id %}" class="btn">
+                        <a href="{% url 'clique' product.id %}" class="btn">
                             Ver detalhes
                         </a>
-                        <a href="https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{{product.nome}}"
+                        <a href="{% url "WhatsApp" product.id %}"
                         class="btn"
                         target="_blank">
                         Comprar no WhatsApp

@@ -1,38 +1,65 @@
 import csv
+import requests
 from decimal import Decimal
 from catalogo.models import Produto, Categoria
 
+SHEETS_CSV_URL = (
+    "https://docs.google.com/spreadsheets/d/"
+    "1wZ2STzjkfYogCSFy4bIth9m4LQBTjPhkKWu13TFNo3k"
+    "/export?format=csv"
+)
+
+def str_to_bool(value):
+    return str(value).strip().upper() == "TRUE"
+
+
 def run():
-    categoria_padrao, _ = Categoria.objects.get_or_create(nome="Geral")
+    print("🔄 Iniciando sincronização com Google Sheets...")
 
-    with open("produtos.csv", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
+    response = requests.get(SHEETS_CSV_URL)
+    response.raise_for_status()
 
-        for row in reader:
-            nome = row["Nome"].strip()
+    lines = response.content.decode("utf-8").splitlines()
+    reader = csv.DictReader(lines)
 
-            if Produto.objects.filter(nome=nome).exists():
-                print(f"⚠️ Já existe: {nome}")
-                continue
+    nomes_planilha = set()
 
-            try:
-                preco = Decimal(row["Preco"])
-            except:
-                print(f"❌ Preço inválido: {nome}")
-                continue
+    for row in reader:
+        nome = row["nome"].strip()
+        nomes_planilha.add(nome)
 
-            categoria, _ = Categoria.objects.get_or_create(
-                nome=row["categoria"].strip()
-            )
+        try:
+            preco = Decimal(row["preco"])
+        except:
+            print(f"❌ Preço inválido: {nome}")
+            continue
 
-            Produto.objects.create(
-                nome=nome,
-                descricao=row.get("descricao", ""),
-                preco=preco,
-                categoria=categoria,
-                promocao=row["promocao"].upper() == "TRUE",
-                ativo=row["ativo"].upper() == "TRUE",
-                destaque=row["destaque"].upper() == "TRUE",
-            )
+        categoria, _ = Categoria.objects.get_or_create(
+            nome=row["categoria"].strip()
+        )
 
-    print("✅ Importação concluída")
+        produto, created = Produto.objects.update_or_create(
+            nome=nome,
+            defaults={
+                "descricao": row.get("descricao", ""),
+                "preco": preco,
+                "categoria": categoria,
+                "promocao": str_to_bool(row.get("promocao")),
+                "destaque": str_to_bool(row.get("destaque")),
+                "ativo": str_to_bool(row.get("status")),
+            }
+        )
+
+        if created:
+            print(f"🆕 Criado: {nome}")
+        else:
+            print(f"♻ Atualizado: {nome}")
+
+    # 🔥 APAGA PRODUTOS QUE NÃO ESTÃO MAIS NA PLANILHA
+    produtos_remover = Produto.objects.exclude(nome__in=nomes_planilha)
+
+    removidos = produtos_remover.count()
+    produtos_remover.delete()
+
+    print(f"🗑 Removidos do banco: {removidos}")
+    print("✅ Sincronização concluída com sucesso")

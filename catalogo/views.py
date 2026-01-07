@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from catalogo.models import Produto, Categoria
-
+from django.db.models import F
 
 def index(request):
-    products_principal = Produto.objects.filter(destaque=False, ativo=True)
+    products_principal = Produto.objects.order_by("-cliques").filter(ativo=True).all()[:8]
     products_promotion = Produto.objects.filter(promocao=True, ativo=True)
 
     context = {
@@ -54,3 +54,16 @@ def promocao_lista(request):
         'catalogo/promocao_lista.html',
         {"produtos": produtos_promocao}
     )
+
+def aumentar_click(request, produto_id):
+    Produto.objects.filter(id=produto_id).update(
+        cliques=F('cliques') + 1
+    )
+    return redirect(produto_detalhe(request, produto_id))
+
+def aumentar_click_whatsapp(request, produto_id):
+    Produto.objects.filter(id=produto_id).update(
+        cliques=F('whatsapp') + 1
+    )
+    produto = Produto.objects.get(id=produto_id)
+    return redirect(f"https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{produto.nome}")
