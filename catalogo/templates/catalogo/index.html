@@ -54,7 +54,7 @@
 
                         <h3>{{ product.nome }}</h3>
                         <p class="price promo">R$ {{ product.preco }}</p>
-
+                        <small>🔥 {{ product.cliques }} pessoas viram este produto</small>
                         <a href="{% url 'clique' product.id %}" class="btn">
                             Ver detalhes
                         </a>
