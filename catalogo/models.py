@@ -3,11 +3,7 @@ from django.db import models
 # Create your models here.
 class Categoria(models.Model):
     nome = models.CharField(max_length=100)
-    imagem = models.ImageField(
-        upload_to="categorias/",
-        blank=True,
-        null=True
-    )
+    imagem = models.TextField(max_length=255)
 
     def __str__(self):
         return self.nome
@@ -37,8 +33,8 @@ class Produto(models.Model):
         if self.imagem:
             return self.imagem.url
         if self.categoria.imagem:
-            return self.categoria.imagem.url
-        return "/static/img/placeholder.png"
+            return self.categoria.imagem
+        return "https://github.com/joaogabriel689/sistema_coutos_conveniencia/blob/production/media/categorias/geral_tG66OXI.png?raw=true"
 
     def __str__(self):
         return self.nome
