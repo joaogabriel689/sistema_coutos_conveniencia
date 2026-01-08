@@ -21,7 +21,22 @@
                     </option>
                 {% endfor %}
             </select>
-
+            {% if list_subcategorys %}
+            <label for="subcategory">escolha a sub categoria</label>
+            <select name="subcategory">
+            <option value="">todas</option>
+            
+                {% for subcategory in list_subcategorys %}
+                    <option value="{{ subcategory.id }}"
+                        {% if request.GET.category == subcategory.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ subcategory.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% endif %}
             <button type="submit">Filtrar</button>
         </form>
     </section>

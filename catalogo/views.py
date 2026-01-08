@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from catalogo.models import Produto, Categoria
+from catalogo.models import Produto, Categoria, SubCategoria
 from django.db.models import F
 
 def index(request):
@@ -25,17 +25,27 @@ def produto_detalhe(request, produto_id):
 
 def list_produtos(request):
     list_categorys = Categoria.objects.all()
+    list_subcategorys = False
     list_products = Produto.objects.filter(ativo=True)
 
     category = request.GET.get("category")
+    subcategory = request.GET.get("subcategory")
 
     if category:
-        list_products = list_products.filter(
-            categoria__id=category
-        )
+        if subcategory:
+            list_products = list_products.filter(categoria_id=category, subcategoria_id=subcategory)
+        else:
+            list_products = list_products.filter(
+                categoria__id=category
+            )
+            list_subcategorys = SubCategoria.objects.filter(categoria=category)
+
+
+
 
     context = {
         'list_categorys': list_categorys,
+        'list_subcategorys': list_subcategorys,
         'list_products': list_products
     }
 
