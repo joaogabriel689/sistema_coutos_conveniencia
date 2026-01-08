@@ -1,12 +1,12 @@
+
 {% load static %}
 {% include "./pages/header.html" %}
 
 <main>
 
-    <!-- HERO -->
+    <!-- HERO / BEM-VINDO -->
     <section class="welcome">
         <div class="image-welcome">
-            
             <h1>Bem-vindos à Coutos Conveniência</h1>
             <p>Os melhores produtos perto de você</p>
         </div>
@@ -20,7 +20,7 @@
             <div class="products-grid">
                 {% for product in products_principal %}
                     <div class="cardproduct">
-                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
+                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }} - Couto's Conveniência">
 
                         <h3>{{ product.nome }}</h3>
                         <p class="price">R$ {{ product.preco }}</p>
@@ -29,9 +29,10 @@
                             Ver detalhes
                         </a>
                         <a href="{% url 'WhatsApp' product.id %}"
-                        class="btn"
-                        target="_blank">
-                        Comprar no WhatsApp
+                           class="btn"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Comprar no WhatsApp
                         </a>
                     </div>
                 {% endfor %}
@@ -49,19 +50,20 @@
             <div class="products-grid">
                 {% for product in products_promotion %}
                     <div class="cardproduct">
-
-                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
+                        <img src="{{ product.imagem_final }}" alt="{{ product.nome }} em promoção">
 
                         <h3>{{ product.nome }}</h3>
                         <p class="price promo">R$ {{ product.preco }}</p>
                         <small>🔥 {{ product.cliques }} pessoas viram este produto</small>
+                        
                         <a href="{% url 'clique' product.id %}" class="btn">
                             Ver detalhes
                         </a>
-                        <a href="{% url "WhatsApp" product.id %}"
-                        class="btn"
-                        target="_blank">
-                        Comprar no WhatsApp
+                        <a href="{% url 'WhatsApp' product.id %}"
+                           class="btn"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Comprar no WhatsApp
                         </a>
                     </div>
                 {% endfor %}
@@ -76,14 +78,24 @@
         <h2>Contato</h2>
 
         <div class="social">
-            <h3>Não encontrou oque procura? chame no WhatsApp:</h3>
-            <a href="https://wa.me/5567992404458" target="_blank">
+            <h3>Não encontrou o que procura? Chame no WhatsApp:</h3>
+            <a href="https://wa.me/5567992404458" 
+               target="_blank"
+               rel="noopener noreferrer">
                 WhatsApp
             </a>
         </div>
 
         <div class="location">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.6741777725456!2d-54.661525499999996!3d-20.4374851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9486e76066d33039%3A0x2ebc6b05a8b8bea9!2scoutos%20conveni%C3%AAncia!5e0!3m2!1spt-BR!2sbr!4v1767064135050!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3738.6741777725456!2d-54.661525499999996!3d-20.4374851!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9486e76066d33039%3A0x2ebc6b05a8b8bea9!2scoutos%20conveni%C3%AAncia!5e0!3m2!1spt-BR!2sbr!4v1767064135050!5m2!1spt-BR!2sbr" 
+                    width="600" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Localização Couto's Conveniência no Google Maps">
+            </iframe>
         </div>
     </section>
 

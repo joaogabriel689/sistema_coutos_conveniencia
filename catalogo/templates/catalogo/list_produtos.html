@@ -1,69 +1,79 @@
+
 {% load static %}
 {% include "./pages/header.html" %}
 
 <main>
+    <h1 class="visually-hidden">Produtos - Couto's Conveniência</h1>
 
-    <!-- FILTRO -->
+    <!-- FILTROS -->
     <section class="filters">
         <form method="get">
-            <label for="category">Escolha a categoria</label>
+            <div>
+                <label for="category">Escolha a categoria</label>
+                <select name="category" id="category">
+                    <option value="">Todas</option>
 
-            <select name="category">
-                <option value="">Todas</option>
-
-                {% for category in list_categorys %}
-                    <option value="{{ category.id }}"
-                        {% if request.GET.category == category.id|stringformat:"s" %}
-                            selected
-                        {% endif %}
-                    >
-                        {{ category.nome }}
-                    </option>
-                {% endfor %}
-            </select>
-            {% if list_subcategorys %}
-            <label for="subcategory">escolha a sub categoria</label>
-            <select name="subcategory">
-            <option value="">todas</option>
+                    {% for category in list_categorys %}
+                        <option value="{{ category.id }}"
+                            {% if request.GET.category == category.id|stringformat:"s" %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ category.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
             
-                {% for subcategory in list_subcategorys %}
-                    <option value="{{ subcategory.id }}"
-                        {% if request.GET.category == subcategory.id|stringformat:"s" %}
-                            selected
-                        {% endif %}
-                    >
-                        {{ subcategory.nome }}
-                    </option>
-                {% endfor %}
-            </select>
+            {% if list_subcategorys %}
+            <div>
+                <label for="subcategory">Escolha a subcategoria</label>
+                <select name="subcategory" id="subcategory">
+                    <option value="">Todas</option>
+                
+                    {% for subcategory in list_subcategorys %}
+                        <option value="{{ subcategory.id }}"
+                            {% if request.GET.subcategory == subcategory.id|stringformat:"s" %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ subcategory.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
             {% endif %}
+            
             <button type="submit">Filtrar</button>
         </form>
     </section>
 
     <!-- LISTA DE PRODUTOS -->
     <section class="products-list">
-        {% for product in list_products %}
-            <div class="cardproduct">
+        <h2>Nossos Produtos</h2>
+        
+        <div class="products-grid">
+            {% for product in list_products %}
+                <div class="cardproduct">
+                    <img src="{{ product.imagem_final }}" alt="{{ product.nome }} - Couto's Conveniência">
 
-                <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
+                    <h3>{{ product.nome }}</h3>
+                    <p class="price">R$ {{ product.preco }}</p>
 
-                <h2>{{ product.nome }}</h2>
-                <p>R$ {{ product.preco }}</p>
-
-                        <a href="{% url 'clique' product.id %}" class="btn">
-                            Ver detalhes
-                        </a>
-                        <a href="{% url "WhatsApp" product.id %}"
-                        class="btn"
-                        target="_blank">
+                    <a href="{% url 'clique' product.id %}" class="btn">
+                        Ver detalhes
+                    </a>
+                    <a href="{% url 'WhatsApp' product.id %}"
+                       class="btn"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         Comprar no WhatsApp
-                        </a>
-
-            </div>
-        {% empty %}
-            <p>Nenhum produto encontrado.</p>
-        {% endfor %}
+                    </a>
+                </div>
+            {% empty %}
+                <p class="empty">Nenhum produto encontrado.</p>
+            {% endfor %}
+        </div>
     </section>
 
 </main>

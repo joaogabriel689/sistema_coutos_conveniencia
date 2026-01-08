@@ -1,28 +1,34 @@
+
 {% load static %}
 {% include "./pages/header.html" %}
 
-<section class="product-detail">
-    <div class="cardproduct">
+<main>
+    <h1 class="visually-hidden">{{ product.nome }} - Couto's Conveniência</h1>
+    
+    <section class="product-detail">
+        <div class="cardproduct">
+            <img src="{{ product.imagem_final }}" alt="{{ product.nome }} - Couto's Conveniência">
 
-        <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
+            <h2>{{ product.nome }}</h2>
+            <p class="price">R$ {{ product.preco }}</p>
 
-        <h2>{{ product.nome }}</h2>
-        <p class="price">R$ {{ product.preco }}</p>
+            {% if product.descricao %}
+                <p class="product-description">{{ product.descricao }}</p>
+            {% endif %}
 
-        {% if product.descricao %}
-            <p>{{ product.descricao }}</p>
-        {% endif %}
-
-        <p class="categoria">
-            Categoria: {{ product.categoria.nome }}
-        </p>
-        <a href="{% url "WhatsApp" product.id %}"
-            class="btn"
-            target="_blank">
-        Comprar no WhatsApp
-        </a>
-        <a href="{% url 'list_produtos' %}" class="btn">Voltar</a>
-    </div>
-</section>
+            <p class="categoria">
+                Categoria: {{ product.categoria.nome }}
+            </p>
+            
+            <a href="{% url 'WhatsApp' product.id %}"
+               class="btn"
+               target="_blank"
+               rel="noopener noreferrer">
+                Comprar no WhatsApp
+            </a>
+            <a href="{% url 'list_produtos' %}" class="btn">Voltar aos Produtos</a>
+        </div>
+    </section>
+</main>
 
 {% include "./pages/footer.html" %}

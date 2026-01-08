@@ -1,27 +1,35 @@
+
 {% load static %}
 {% include "./pages/header.html" %}
 
 <main>
+    <h1 class="visually-hidden">Promoções - Couto's Conveniência</h1>
+    
     <section class="promotions">
         <h2>Promoções</h2>
 
-        {% for product in products_promotion %}
-            <div class="cardproduct">
-                <img src="{{ product.imagem_final }}" alt="{{ product.nome }}">
-                <h3>{{ product.nome }}</h3>
-                <p class="price promo">R$ {{ product.preco }}</p>
-                        <a href="{% url 'clique' product.id %}" class="btn">
-                            Ver detalhes
-                        </a>
-                        <a href="{% url "WhatsApp" product.id %}"
-                        class="btn"
-                        target="_blank">
+        <div class="products-grid">
+            {% for product in products_promotion %}
+                <div class="cardproduct">
+                    <img src="{{ product.imagem_final }}" alt="{{ product.nome }} em promoção">
+                    
+                    <h3>{{ product.nome }}</h3>
+                    <p class="price promo">R$ {{ product.preco }}</p>
+                    
+                    <a href="{% url 'clique' product.id %}" class="btn">
+                        Ver detalhes
+                    </a>
+                    <a href="{% url 'WhatsApp' product.id %}"
+                       class="btn"
+                       target="_blank"
+                       rel="noopener noreferrer">
                         Comprar no WhatsApp
-                        </a>
-            </div>
-        {% empty %}
-            <p class="text-center">Nenhuma promoção ativa.</p>
-        {% endfor %}
+                    </a>
+                </div>
+            {% empty %}
+                <p class="empty">Nenhuma promoção ativa.</p>
+            {% endfor %}
+        </div>
     </section>
 </main>
 
