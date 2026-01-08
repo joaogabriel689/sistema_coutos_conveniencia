@@ -69,7 +69,7 @@ def aumentar_click(request, produto_id):
     Produto.objects.filter(id=produto_id).update(
         cliques=F('cliques') + 1
     )
-    return redirect(produto_detalhe(request, produto_id))
+    return redirect('produto_detalhe', produto_id=produto_id)
 
 def aumentar_click_whatsapp(request, produto_id):
     Produto.objects.filter(id=produto_id).update(
