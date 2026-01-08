@@ -35,19 +35,22 @@ class Produto(models.Model):
 
 
 
-    @property
-    def imagem_final(self):
-        if self.imagem:
-            return self.imagem
+@property
+def imagem_final(self):
+    if self.imagem:
+        return self.imagem
 
-        if self.subcategoria and self.subcategoria.imagem:
-            return self.subcategoria.imagem
+    if self.subcategoria and self.subcategoria.imagem:
+        return self.subcategoria.imagem
 
-        if self.categoria and self.categoria.imagem:
-            return self.categoria.imagem
+    if self.categoria and self.categoria.imagem:
+        return self.categoria.imagem
 
-        return "https://github.com/joaogabriel689/sistema_coutos_conveniencia/blob/production/media/categorias/geral_tG66OXI.png?raw=true"
-
+    return (
+        "https://github.com/joaogabriel689/"
+        "sistema_coutos_conveniencia/blob/production/"
+        "media/categorias/geral_tG66OXI.png?raw=true"
+    )
 
     def __str__(self):
         return self.nome
