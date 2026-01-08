@@ -9,8 +9,6 @@ __pycache__/
 *.pyd
 
 # Django
-db.sqlite3
-db.sqlite3
 
 # VS Code / Windows
 .vscode/
