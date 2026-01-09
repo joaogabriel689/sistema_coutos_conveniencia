@@ -49,7 +49,7 @@ class Command(BaseCommand):
                 continue
 
             categoria, _ = Categoria.objects.get_or_create(
-                nome=nome_categoria
+                nome=nome_categoria.upper()
             )
 
             # --- Subcategoria (opcional, dependente da categoria) ---
@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
             if nome_subcategoria:
                 subcategoria, _ = SubCategoria.objects.get_or_create(
-                    nome=nome_subcategoria,
+                    nome=nome_subcategoria.upper(),
                     categoria=categoria
                 )
 
