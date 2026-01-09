@@ -6,47 +6,37 @@
     <h1 class="visually-hidden">Produtos - Couto's Conveniência</h1>
 
     <!-- FILTROS -->
-    <section class="filters">
-        <form method="get">
-            <div>
-                <label for="category">Escolha a categoria</label>
-                <select name="category" id="category">
-                    <option value="">Todas</option>
+<section class="filters">
+    <form method="get" id="filter-form">
+        <div>
+            <label for="category">Escolha a categoria</label>
+            <select name="category" id="category">
+                <option value="">Todas</option>
 
-                    {% for category in list_categorys %}
-                        <option value="{{ category.id }}"
-                            {% if request.GET.category == category.id|stringformat:"s" %}
-                                selected
-                            {% endif %}
-                        >
-                            {{ category.nome }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            {% if list_subcategorys %}
-            <div>
-                <label for="subcategory">Escolha a subcategoria</label>
-                <select name="subcategory" id="subcategory">
-                    <option value="">Todas</option>
-                
-                    {% for subcategory in list_subcategorys %}
-                        <option value="{{ subcategory.id }}"
-                            {% if request.GET.subcategory == subcategory.id|stringformat:"s" %}
-                                selected
-                            {% endif %}
-                        >
-                            {{ subcategory.nome }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            {% endif %}
-            
-            <button type="submit">Filtrar</button>
-        </form>
-    </section>
+                {% for category in list_categorys %}
+                    <option value="{{ category.id }}"
+                        {% if request.GET.category == category.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ category.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="subcategory">Escolha a subcategoria</label>
+            <select name="subcategory" id="subcategory">
+                <option value="">Todas</option>
+            </select>
+        </div>
+
+        <button type="submit">Filtrar</button>
+    </form>
+</section>
+
+
 
     <!-- LISTA DE PRODUTOS -->
     <section class="products-list">

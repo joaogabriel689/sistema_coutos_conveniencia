@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from catalogo.models import Produto, Categoria, SubCategoria
 from django.db.models import F
+from django.core.serializers import serialize
+
 
 def index(request):
     products_principal = Produto.objects.order_by("-cliques").filter(ativo=True).all()[:8]
@@ -45,9 +47,10 @@ def list_produtos(request):
 
     context = {
         'list_categorys': list_categorys,
-        'list_subcategorys': list_subcategorys,
         'list_products': list_products
     }
+
+    context["subcategories_json"] = serialize("json", SubCategoria.objects.all())
 
     return render(request, 'catalogo/list_produtos.html', context)
 
@@ -76,4 +79,5 @@ def aumentar_click_whatsapp(request, produto_id):
         cliques=F('whatsapp') + 1
     )
     produto = Produto.objects.get(id=produto_id)
-    return redirect(f"https://wa.me/5567992404458?text=Olá,%20quero%20esse%20produto%20{produto.nome}")
+    text = f"Olá, o produto {produto.nome} ainda está disponível?"
+    return redirect(f"https://wa.me/5567992404458?text={text}")

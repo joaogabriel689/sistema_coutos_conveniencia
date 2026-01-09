@@ -6,7 +6,11 @@
     <meta name="description" content="Couto's Conveniência em Campo Grande. Bebidas geladas, snacks, promoções e atendimento rápido. Veja nossos produtos e fale conosco pelo WhatsApp.">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
     <link rel="shortcut icon" href="{% static 'images/system/favicon.ico' %}" type="image/x-icon">
-    
+    <!-- JSON vindo do backend -->
+    <script id="subcategories-data" type="application/json">
+        {{ subcategories_json|safe }}
+    </script>
+    <script src="{% static 'scripts/scripts.js' %}" defer></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
